@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Confirmation - Disease Detection System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('images/dds.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        header, footer {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1em;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2em;
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #FFD700;
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        #logout {
+            background-color: #FFD700;
+            color: black;
+            padding: 0.5em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            display: none;
+        }
+        #logout:hover {
+            background-color: #FFC107;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('appointment-details').textContent = ` ${username}`;
+                document.getElementById('logout').style.display = 'inline';
+            } else {
+                window.location.href = 'login.html';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('username');
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Disease Detection System</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="symptoms.html">Enter Symptoms</a></li>
+                <li><a href="treatments.html">Search Treatments</a></li>
+                <li><a href="facilities.html">Nearby Facilities</a></li>
+                <li><a href="prescriptions.html">Prescriptions</a></li>
+                <li><a href="appointments.html">Book Appointment</a></li>
+                <li><a href="chatbot.html">Chatbot</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><button id="logout" onclick="logout()">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Appointment Confirmed</h2>
+            <p>Appointment has been booked for:</p>
+            <p id="appointment-details"></p>
+            <p>Thank you for using our service.</p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Disease Detection System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

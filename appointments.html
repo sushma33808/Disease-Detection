@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - Disease Detection System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('images/dds.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        header, footer {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1em;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2em;
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #FFD700;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 0.5em;
+            color: #FFD700;
+        }
+        input, select {
+            margin-bottom: 1em;
+            padding: 0.5em;
+            border: none;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #FFD700;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #FFC107;
+        }
+        #logout {
+            background-color: #FFD700;
+            color: black;
+            padding: 0.5em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            display: none;
+        }
+        #logout:hover {
+            background-color: #FFC107;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('welcome-message').textContent = `Welcome, ${username}`;
+                document.getElementById('logout').style.display = 'inline';
+            }
+        }
+    
+        function logout() {
+            localStorage.removeItem('username');
+            window.location.href = 'login.html';
+        }
+    
+        function bookAppointment(event) {
+            event.preventDefault();
+            const facility = document.getElementById('facility').value;
+            const doctor = document.getElementById('doctor').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const username = localStorage.getItem('username');
+    
+            localStorage.setItem('appointmentDetails', JSON.stringify({ facility, doctor, date, time, username }));
+            window.location.href = 'appointmentconfirmation.html';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Disease Detection System</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="symptoms.html">Enter Symptoms</a></li>
+                <li><a href="treatments.html">Search Treatments</a></li>
+                <li><a href="facilities.html">Nearby Facilities</a></li>
+                <li><a href="prescriptions.html">Prescriptions</a></li>
+                <li><a href="appointments.html">Book Appointment</a></li>
+                <li><a href="chatbot.html">Chatbot</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><button id="logout" onclick="logout()">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Book an Appointment</h2>
+            <form onsubmit="bookAppointment(event)">
+                <label for="facility">Select Facility:</label>
+                <select id="facility" name="facility" required>
+                    <option value="">--Select Facility--</option>
+                    <option value="Facility1">APOLLO</option>
+                    <option value="Facility2">AIIMS</option>
+                    <option value="Facility3">YASHODA</option>
+                    <option value="Facility3">KIMS</option>
+                    <option value="Facility3">SPARK</option>
+                </select>
+                <label for="doctor">Select Doctor:</label>
+                <select id="doctor" name="doctor" required>
+                    <option value="">--Select Doctor--</option>
+                    <option value="Doctor1">Dr.Suman Rao</option>
+                    <option value="Doctor2">Dr.Priya Sharma</option>
+                    <option value="Doctor3">Dr.Sneha Desa</option>
+                    <option value="Doctor2">Dr.Arjun Rao</option>
+                    <option value="Doctor3">Dr.Vishal Rao</option>
+                </select>
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date" required>
+                <label for="time">Select Time:</label>
+                <input type="time" id="time" name="time" required>
+                <input type="submit" value="Book Appointment">
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Disease Detection System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Healthcare Facilities - Disease Detection System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('images/w.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        header, footer {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1em;
+            text-align: center
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2em;
+            border-radius: 8px
+        }
+        h1, h2 {
+            color: #FFD700
+        }
+        form {
+            display: flex;
+            flex-direction: column
+        }
+        label {
+            margin-bottom: 0.5em;
+            color: #FFD700
+        }
+        input {
+            margin-bottom: 1em;
+            padding: 0.5em;
+            border: none;
+            border-radius: 4px
+        }
+        input[type="submit"] {
+            background-color: #FFD700;
+            color: black;
+            font-weight: bold;
+            cursor: pointer
+        }
+        input[type="submit"]:hover {
+            background-color: #FFC107
+        }
+        .results {
+            margin-top: 2em;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1em;
+            border-radius: 8px
+        }
+        .results h3 {
+            color: #FFD700
+        }
+        .results p {
+            color: white
+        }
+        .facility {
+            margin-bottom: 1em
+        }
+        #logout {
+            background-color: #FFD700;
+            color: black;
+            padding: 0.5em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            display: none
+        }
+        #logout:hover {
+            background-color: #FFC107
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Disease Detection System</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="symptoms.html">Enter Symptoms</a></li>
+                <li><a href="treatments.html">Search Treatments</a></li>
+                <li><a href="facilities.html">Nearby Facilities</a></li>
+                <li><a href="prescriptions.html">Prescriptions</a></li>
+                <li><a href="appointments.html">Book Appointment</a></li>
+                <li><a href="chatbot.html">Chatbot</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><button id="logout" onclick="logout()">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Find Nearby Healthcare Facilities</h2>
+            <form onsubmit="displayFacilities(event)">
+                <label for="location">Enter Your Location:</label>
+                <input type="text" id="location" name="location" placeholder="e.g., Hyderabad, Secunderabad, Warangal, Nizamabad, Nalgonda" required>
+                <input type="submit" value="Search Facilities">
+            </form>
+            <div id="results" class="results"></div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Disease Detection System. All rights reserved.</p>
+    </footer>
+    <script>
+        const hospitalsByLocation = {
+            'Hyderabad': [
+                'Apollo Hospitals',
+                'Yashoda Hospitals',
+                'KIMS Hospital (Krishna Institute of Medical Sciences)',
+                'Care Hospitals',
+                'AIG Hospitals (Asian Institute of Gastroenterology)',
+                'Continental Hospitals',
+                'Sunshine Hospitals',
+                'Nizam\'s Institute of Medical Sciences (NIMS)',
+                'LV Prasad Eye Institute',
+                'Global Hospitals',
+                'Medicover Hospitals',
+                'MaxCure Hospitals',
+                'Rainbow Children\'s Hospital',
+                'Star Hospitals',
+                'Virinchi Hospitals'
+            ],
+            'Secunderabad': [
+                'Yashoda Hospital, Secunderabad',
+                'KIMS Hospital, Secunderabad',
+                'Apollo Hospital, Secunderabad',
+                'MaxCure Hospital, Secunderabad',
+                'Sunshine Hospital, Secunderabad',
+                'Gandhi Hospital',
+                'Basavatarakam Indo American Cancer Hospital & Research Institute',
+                'Railway Hospital, Secunderabad',
+                'Basant Sahney Hospital',
+                'Cure Hospitals, Secunderabad',
+                'Vinn Hospital',
+                'Parvathi Hospital'
+            ],
+            'Warangal': [
+                'MGM Hospital',
+                'Surya Hospital',
+                'Balaji Hospital',
+                'Rohini Super Speciality Hospital',
+                'Chaitanya Hospital',
+                'Kakatiya Hospital',
+                'Sunshine Hospitals, Hanamkonda',
+                'Venkateshwara Hospital',
+                'Medilife Hospital',
+                'KIMS Hospitals, Warangal'
+            ],
+            'Nizamabad': [
+                'Government General Hospital, Nizamabad',
+                'Medicare Hospital',
+                'SVS Hospital',
+                'Sigma Hospital',
+                'Prathima Hospital',
+                'Nizamabad Kidney Centre',
+                'Jaya Hospitals',
+                'Sri Sai Krishna Hospital',
+                'Anurag Multi Speciality Hospital',
+                'Vamsi Hospital'
+            ],
+            'Nalgonda': [
+                'Government General Hospital, Nalgonda',
+                'Sai Multi Speciality Hospital',
+                'Sunrise Hospital',
+                'Sri Venkateshwara Hospital',
+                'Abhinav Multi Speciality Hospital',
+                'Srinivasa Hospital',
+                'Siddhartha Hospital',
+                'Sushruta Hospital',
+                'Vijaya Hospital',
+                'Kiran Hospital'
+            ]
+        };
+
+        window.onload = function() {
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('welcome-message').textContent = `Welcome, ${username}`;
+                document.getElementById('logout').style.display = 'inline';
+            } 
+        }
+
+        function displayFacilities(event) {
+            event.preventDefault();
+            const location = document.getElementById('location').value;
+            const hospitals = hospitalsByLocation[location] || [];
+            const resultsDiv = document.getElementById('results');
+
+            if (hospitals.length > 0) {
+                resultsDiv.innerHTML = `<h3>Hospitals in ${location}:</h3>`;
+                hospitals.forEach(hospital => {
+                    resultsDiv.innerHTML += `<p>${hospital}</p>`;
+                });
+            } else {
+                resultsDiv.innerHTML = `<h3>No hospitals found for ${location}.</h3>`;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('username');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

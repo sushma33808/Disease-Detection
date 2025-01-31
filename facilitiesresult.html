@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Facilities Results - Disease Detection System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('images/th.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        header, footer {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1em;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2em;
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #FFD700;
+        }
+        .results {
+            margin-top: 2em;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1em;
+            border-radius: 8px;
+        }
+        .results h3 {
+            color: #FFD700;
+        }
+        .results p {
+            color: white;
+        }
+        .facility {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Disease Detection System</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="symptoms.html">Enter Symptoms</a></li>
+                <li><a href="treatments.html">Search Treatments</a></li>
+                <li><a href="facilities.html">Nearby Facilities</a></li>
+                <li><a href="prescriptions.html">Prescriptions</a></li>
+                <li><a href="appointments.html">Book Appointment</a></li>
+                <li><a href="chatbot.html">Chatbot</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Nearby Healthcare Facilities</h2>
+            <div class="results">
+                <h3>Location: [User's Location]</h3>
+                <p>Here are the healthcare facilities near you:</p>
+                <div class="facility">
+                    <h4>Facility Name 1</h4>
+                    <p>Address: Facility Address 1</p>
+                    <p>Contact: Facility Contact 1</p>
+                </div>
+                <div class="facility">
+                    <h4>Facility Name 2</h4>
+                    <p>Address: Facility Address 2</p>
+                    <p>Contact: Facility Contact 2</p>
+                </div>
+                <div class="facility">
+                    <h4>Facility Name 3</h4>
+                    <p>Address: Facility Address 3</p>
+                    <p>Contact: Facility Contact 3</p>
+                </div>
+                <!-- Add more facilities as needed -->
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Disease Detection System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

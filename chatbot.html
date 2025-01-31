@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot - Disease Detection System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('images/dd5.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        header, footer {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1em;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2em;
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #FFD700;
+        }
+        .chatbox {
+            border: 1px solid #FFD700;
+            border-radius: 8px;
+            padding: 1em;
+            height: 400px;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .chatbox p {
+            margin: 0.5em 0;
+        }
+        .user {
+            text-align: right;
+            color: #FFD700;
+        }
+        .bot {
+            text-align: left;
+            color: white;
+        }
+        form {
+            display: flex;
+            margin-top: 1em;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 0.5em;
+            border: none;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #FFD700;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5em 1em;
+            margin-left: 0.5em;
+        }
+        input[type="submit"]:hover {
+            background-color: #FFC107;
+        }
+        #logout {
+            background-color: #FFD700;
+            color: black;
+            padding: 0.5em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            display: none;
+        }
+        #logout:hover {
+            background-color: #FFC107;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('welcome-message').textContent = `Welcome, ${username}`;
+                document.getElementById('logout').style.display = 'inline';
+            } 
+        }
+    
+        function logout() {
+            localStorage.removeItem('username');
+            window.location.href = 'login.html';
+        }
+    </script>
+    
+</head>
+<body>
+    <header>
+        <h1>Disease Detection System</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="symptoms.html">Enter Symptoms</a></li>
+                <li><a href="treatments.html">Search Treatments</a></li>
+                <li><a href="facilities.html">Nearby Facilities</a></li>
+                <li><a href="prescriptions.html">Prescriptions</a></li>
+                <li><a href="appointments.html">Book Appointment</a></li>
+                <li><a href="chatbot.html">Chatbot</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><button id="logout" onclick="logout()">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Health Chatbot</h2>
+            <div class="chatbox" id="chatbox">
+                <p class="bot">Hello! How can I assist you today?</p>
+            </div>
+            <form id="chatForm">
+                <input type="text" id="userInput" placeholder="Type your message here..." required>
+                <input type="submit" value="Send">
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Disease Detection System. All rights reserved.</p>
+    </footer>
+    <script>
+        document.getElementById('chatForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userInput = document.getElementById('userInput').value;
+            const chatbox = document.getElementById('chatbox');
+
+            // Display user message
+            const userMessage = document.createElement('p');
+            userMessage.className = 'user';
+            userMessage.textContent = userInput;
+            chatbox.appendChild(userMessage);
+
+            // Clear input field
+            document.getElementById('userInput').value = '';
+
+            // Scroll to bottom of chatbox
+            chatbox.scrollTop = chatbox.scrollHeight;
+
+            // Display bot response (for now, echoing user input as a placeholder)
+            setTimeout(() => {
+                const botMessage = document.createElement('p');
+                botMessage.className = 'bot';
+                botMessage.textContent = 'You said: ' + userInput;
+                chatbox.appendChild(botMessage);
+
+                // Scroll to bottom of chatbox
+                chatbox.scrollTop = chatbox.scrollHeight;
+            }, 500);
+        });
+    </script>
+</body>
+</html>
